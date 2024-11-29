@@ -29,7 +29,7 @@ class MySQL:
 
 TABLES = {
     'data_table': (
-        "CREATE TABLE `data_table` ("
+        "CREATE TABLE IF NOT EXISTS `data_table` ("
         "  `id` int(11) NOT NULL AUTO_INCREMENT,"
         "  `data` varchar(14) NOT NULL,"
         "  PRIMARY KEY (`id`)"
@@ -44,8 +44,12 @@ def init(db):
         try:
             print("Creating table {}: ".format(table_name), end='')
             cursor.execute(table_description)
-            data = "INSERT INTO `data_table` (data) VALUES ('HEllo, world!')"
-            cursor.execute(data)
+            query = 'SELECT data from data_table WHERE id = 1'
+            cursor.execute(query)
+            data = cursor.fetchone()
+            if data is None:
+                data = "INSERT INTO `data_table` (data) VALUES ('Hello, world!')"
+                cursor.execute(data)
         except mysql.connector.Error as err:
             if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
                 print("already exists.")

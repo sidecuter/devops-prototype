@@ -15,7 +15,7 @@ def index():
     cursor = db.connection().cursor(named_tuple=True)
     cursor.execute(query)
     data = cursor.fetchone()
-    status = f'Data is: {data}'
+    status = f'Data is: {data.data}'
     return render_template('base.html', status=status)
 
 @app.route('/', methods=['POST'])
