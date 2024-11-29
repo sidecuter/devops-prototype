@@ -11,4 +11,4 @@ COPY . .
 
 WORKDIR /opt/app/app
 
-CMD ["gunicorn" "-b" "0.0.0.0:3000" "-w" "4" "app:app"]
+CMD ["/opt/app/venv/bin/gunicorn" "-b" "0.0.0.0:3000" "-w" "4" "app:app"]
