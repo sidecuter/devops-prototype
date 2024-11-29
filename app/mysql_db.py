@@ -10,7 +10,7 @@ class MySQL:
     def connection(self):
         if 'db' not in g:
             g.db = mysql.connector.connect(**self.config())
-        init(g.db)
+            init(g.db)
         return g.db
     
     def config(self):
