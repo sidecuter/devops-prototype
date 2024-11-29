@@ -1,5 +1,5 @@
 SECRET_KEY = 'test'
 MYSQL_USER = 'test'
 MYSQL_PASSWORD = 'test'
-MYSQL_HOST = 'localhost'
+MYSQL_HOST = '172.16.0.11'
 MYSQL_DATABASE = 'test'
