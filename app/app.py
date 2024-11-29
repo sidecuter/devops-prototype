@@ -7,8 +7,6 @@ application = app
  
 app.config.from_pyfile('config.py')
 
-db = MySQL(app)
-
 @app.route('/')
 def index():
     state = f'Connection is {"not " if db.is_connected() else ''}active'
