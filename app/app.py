@@ -9,5 +9,4 @@ app.config.from_pyfile('config.py')
 
 @app.route('/')
 def index():
-    state = f'Connection is {"not " if db.is_connected() else ''}active'
-    return render_template('base.html', status=state)
+    return render_template('base.html')
