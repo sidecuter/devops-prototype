@@ -23,10 +23,17 @@ def index():
 
 @app.route('/', methods=['POST'])
 def insert():
-    query = 'UPDATE data_table SET data = %s WHERE id = 1'
-    data = request.form.get('data')
+    print("debug")
     cursor = db.connection().cursor(named_tuple=True)
-    cursor.execute(query, (data,))
+    query = 'SELECT data from data_table WHERE id = 1'
+    cursor.execute(query)
+    data = cursor.fetchone()
+    if data is None:
+        query1 = 'INSERT INTO data_table (id, data) VALUES (1, %s)'
+    else:
+        query1 = 'UPDATE data_table SET data = %s WHERE id = 1'
+    data = request.form.get('data')
+    cursor.execute(query1, (data,))
     db.connection().commit()
     cursor.close()
     return redirect(url_for('index'))

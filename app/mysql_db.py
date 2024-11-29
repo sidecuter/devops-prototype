@@ -6,11 +6,18 @@ class MySQL:
     def __init__(self,app):
         self.app = app
         self.app.teardown_appcontext(self.close_connection) 
+        db = mysql.connector.connect(** {
+            'user': self.app.config['MYSQL_USER'],
+            'password': self.app.config['MYSQL_PASSWORD'],
+            'host': self.app.config['MYSQL_HOST'],
+            'database': self.app.config['MYSQL_DATABASE'],
+        })
+        init(db)
+        db.close()
     
     def connection(self):
         if 'db' not in g:
             g.db = mysql.connector.connect(**self.config())
-            init(g.db)
         return g.db
     
     def config(self):
