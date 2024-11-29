@@ -3,12 +3,10 @@ LABEL APP lab3
 
 WORKDIR /opt/app
 
-RUN python -m venv /opt/app/venv
-
-ENV PATH="/opt/app/venv/bin:$PATH"
-
 COPY . .
+
+RUN pip install -r requirements.txt
 
 WORKDIR /opt/app/app
 
-CMD ["/opt/app/venv/bin/gunicorn" "-b" "0.0.0.0:3000" "-w" "4" "app:app"]
+CMD ["python3", "-m", "gunicorn", "-b", "0.0.0.0:3000", "-w", "4", "app:app"]
