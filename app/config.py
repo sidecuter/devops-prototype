@@ -1,0 +1,5 @@
+SECRET_KEY = 'test'
+MYSQL_USER = 'test'
+MYSQL_PASSWORD = 'test'
+MYSQL_HOST = 'localhost'
+MYSQL_DATABASE = 'test'
