@@ -1,4 +1,5 @@
 import mysql.connector
+from mysql.connector import errorcode
 from flask import g
 
 class MySQL:
@@ -9,8 +10,8 @@ class MySQL:
     def connection(self):
         if 'db' not in g:
             g.db = mysql.connector.connect(**self.config())
+        init(g.db)
         return g.db
-
     
     def config(self):
         return {
@@ -24,3 +25,33 @@ class MySQL:
         db = g.pop('db', None)
         if db is not None:
             db.close()
+
+
+TABLES = {
+    'data_table': (
+        "CREATE TABLE `data_table` ("
+        "  `id` int(11) NOT NULL AUTO_INCREMENT,"
+        "  `data` varchar(14) NOT NULL,"
+        "  PRIMARY KEY (`id`)"
+        ") ENGINE=InnoDB"
+    )
+}
+
+def init(db):
+    cursor = db.cursor()
+    for table_name in TABLES:
+        table_description = TABLES[table_name]
+        try:
+            print("Creating table {}: ".format(table_name), end='')
+            cursor.execute(table_description)
+            data = "INSERT INTO `data_table` (data) VALUES ('HEllo, world!')"
+            cursor.execute(data)
+        except mysql.connector.Error as err:
+            if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
+                print("already exists.")
+            else:
+                print(err.msg)
+        else:
+            print("OK")
+
+    cursor.close()
