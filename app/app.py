@@ -1,14 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for
 from mysql_db import MySQL
-import time
 
 app = Flask(__name__)
 
 application = app
  
 app.config.from_pyfile('config.py')
-
-time.sleep(120)
 
 db = MySQL(app)
 
