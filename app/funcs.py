@@ -7,7 +7,7 @@ def suppier_count(material: Material):
 
 def suppliers_by_bank(engine, bank_address: str):
     with Session(autoflush=False, bind=engine) as db:
-        return db.execute(select(Supplier).filter_by(bank_address=bank_address)).scalars()
+        return list(db.execute(select(Supplier).filter_by(bank_address=bank_address)).scalars())
 
 def material_suppliers(material: Material):
     return material.suppliers

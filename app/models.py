@@ -82,6 +82,9 @@ class Supplier(Base):
     @property
     def materials(self):
         return list(map(lambda su: su.material, self.storage_units))
+    
+    def __eq__(self, value):
+        return self.id == value.id
 
 
 # Создание базы данных
