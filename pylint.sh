@@ -13,3 +13,4 @@ if [ -n "$output" ]; then
 else
     status=0
 fi
+exit $status
