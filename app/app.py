@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
-from mysql_db import MySQL
+from models import db
+from flask_migrate import Migrate
+# from mysql_db import MySQL
 
 app = Flask(__name__)
 
@@ -7,7 +9,8 @@ application = app
  
 app.config.from_pyfile('config.py')
 
-db = MySQL(app)
+db.init_app(app)
+migrate = Migrate(app, db)
 
 @app.route('/')
 def index():
