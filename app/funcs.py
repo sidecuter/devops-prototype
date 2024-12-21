@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import select
 
 def suppier_count(material: Material):
-    return len(material.suppliers)
+    return len(material.suppliers)+1
 
 def suppliers_by_bank(engine, bank_address: str):
     with Session(autoflush=False, bind=engine) as db:
